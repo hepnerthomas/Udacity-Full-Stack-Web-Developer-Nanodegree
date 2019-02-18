@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request
+from flask import redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, AssetClass, FinancialAsset, User
@@ -41,16 +42,15 @@ def fbconnect():
     access_token = request.data
     print("access token received %s " % access_token)
 
-
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
         app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
-
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.8/me"
@@ -98,15 +98,15 @@ def fbdisconnect():
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
-    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)
+    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id, access_token)
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
     return "you have been logged out"
 
+
 # User Helper Functions
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email']) 
+    newUser = User(name=login_session['username'], email=login_session['email'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -125,6 +125,7 @@ def getUserID(email):
     except:
         return None
 
+
 # JSON APIs to view Asset Class Information
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/JSON')
 def assetClassFinancialAssetsJSON(asset_class_id):
@@ -132,11 +133,12 @@ def assetClassFinancialAssetsJSON(asset_class_id):
     items = session.query(FinancialAsset).filter_by(asset_class_id=asset_class_id).all()
     return jsonify(FinancialAssets=[i.serialize for i in items])
 
+
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/<int:financial_asset_id>/JSON')
 def financialAssetJSON(asset_class_id, financial_asset_id):
     assetClass = session.query(AssetClass).filter_by(id=asset_class_id).one()
     financialAsset = session.query(FinancialAsset).filter_by(id=financial_asset_id).one()
-    return jsonify(FinancialAsset = financialAsset.serialize)
+    return jsonify(FinancialAsset=financialAsset.serialize)
 
 
 @app.route('/asset_classes/JSON')
@@ -151,9 +153,10 @@ def assetClassesJSON():
 def showAssetClasses():
     assetClasses = session.query(AssetClass).order_by(asc(AssetClass.name))
     if 'username' not in login_session:
-         return render_template('publicAssetClasses.html', assetClasses=assetClasses)
+        return render_template('publicAssetClasses.html', assetClasses=assetClasses)
     else:
         return render_template('assetClasses.html', assetClasses=assetClasses)
+
 
 # Create a new asset class
 @app.route('/asset_classes/new/', methods=['GET', 'POST'])
@@ -170,8 +173,7 @@ def newAssetClass():
         return render_template('newAssetClass.html')
 
 
-
-# # Edit an existing asset class
+# Edit an existing asset class
 @app.route('/asset_classes/<int:asset_class_id>/edit/', methods=['GET', 'POST'])
 def editAssetClass(asset_class_id):
     editedAssetClass = session.query(AssetClass).filter_by(id=asset_class_id).one()
@@ -204,6 +206,7 @@ def deleteAssetClass(asset_class_id):
     else:
         return render_template('deleteAssetClass.html', assetClass=assetClassToDelete)
 
+
 # Show the financial assets for a given asset class
 @app.route('/asset_classes/<int:asset_class_id>/')
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/')
@@ -216,6 +219,7 @@ def showFinancialAssets(asset_class_id):
     else:
         return render_template('financialAssets.html', items=items, asset_class=asset_class, creator=creator)
 
+
 # Show a specific financial asset
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/<int:financial_asset_id>')
 def showInvididualFinancialAsset(asset_class_id, financial_asset_id):
@@ -227,29 +231,25 @@ def showInvididualFinancialAsset(asset_class_id, financial_asset_id):
     else:
         return render_template('financialAssets.html', items=financialAsset, asset_class=asset_class, creator=creator)
 
+
 # Create a new financial asset
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/new/', methods=['GET', 'POST'])
 def newFinancialAsset(asset_class_id):
     if 'username' not in login_session:
         return redirect('/login')
     assetClass = session.query(AssetClass).filter_by(id=asset_class_id).one()
-    assetClasses = session.query(AssetClass).all()#order_by(asc(AssetClass.name))
+    assetClasses = session.query(AssetClass).all()
     if login_session['user_id'] != assetClass.user_id:
         return "<script>function myFunction() {alert('You are not authorized to add financial assets to this asset class. Please create your own asset class in order to add items.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-        newFinancialAssetItem = FinancialAsset(
-                                name = request.form['name']
-                                , description = request.form['description']
-                                , price = request.form['price']
-                                , asset_class_id = request.form['asset_class']
-                                , user_id = login_session['user_id']
-                                )
+        newFinancialAssetItem = FinancialAsset(name=request.form['name'], description=request.form['description'], price=request.form['price'], asset_class_id=request.form['asset_class'], user_id=login_session['user_id'])
         session.add(newFinancialAssetItem)
         session.commit()
         flash('New Financial Asset %s Successfully Created' % (newFinancialAssetItem.name))
-        return redirect(url_for('showFinancialAssets', asset_class_id = asset_class_id))
+        return redirect(url_for('showFinancialAssets', asset_class_id=asset_class_id))
     else:
-        return render_template('newfinancialasset.html', selectedAssetClass = assetClass, sset_class_id = asset_class_id, assetClasses = assetClasses)
+        return render_template('newfinancialasset.html', selectedAssetClass=assetClass, asset_class_id=asset_class_id, assetClasses=assetClasses)
+
 
 # Edit a financial asset
 @app.route('/asset_classes/<int:asset_class_id>/financial_asset/<int:financial_asset_id>/edit', methods=['GET', 'POST'])
@@ -257,7 +257,7 @@ def editFinancialAsset(asset_class_id, financial_asset_id):
     if 'username' not in login_session:
         return redirect('/login')
     assetClass = session.query(AssetClass).filter_by(id=asset_class_id).one()
-    assetClasses = session.query(AssetClass).order_by(asc(AssetClass.name))    
+    assetClasses = session.query(AssetClass).order_by(asc(AssetClass.name))
     editedItem = session.query(FinancialAsset).filter_by(id=financial_asset_id).one()
     if login_session['user_id'] != assetClass.user_id:
         return "<script>function myFunction() {alert('You are not authorized to edit financial assets from this asset class. Please create your own asset class in order to edit items.');}</script><body onload='myFunction()'>"
@@ -270,14 +270,14 @@ def editFinancialAsset(asset_class_id, financial_asset_id):
         if request.form['price']:
             editedItem.price = request.form['price']
         if request.form['asset_class']:
-            editedItem.asset_class_id = request.form['asset_class']      
+            editedItem.asset_class_id = request.form['asset_class']
 
         session.add(editedItem)
         session.commit()
         flash('Financial Asset Successfully Edited')
-        return redirect(url_for('showFinancialAssets', asset_class_id = asset_class_id))
+        return redirect(url_for('showFinancialAssets', asset_class_id=asset_class_id))
     else:
-        return render_template('editfinancialasset.html', asset_class_id = asset_class_id, financial_asset_id = financial_asset_id, item = editedItem, assetClasses = assetClasses)
+        return render_template('editfinancialasset.html', asset_class_id=asset_class_id, financial_asset_id=financial_asset_id, item=editedItem, assetClasses=assetClasses)
 
 
 # Delete a financial asset
@@ -293,9 +293,9 @@ def deleteFinancialAsset(asset_class_id, financial_asset_id):
         session.delete(itemToDelete)
         session.commit()
         flash('Menu Item Successfully Deleted')
-        return redirect(url_for('showFinancialAssets', asset_class_id = asset_class_id))
+        return redirect(url_for('showFinancialAssets', asset_class_id=asset_class_id))
     else:
-        return render_template('deletefinancialasset.html', item = itemToDelete)
+        return render_template('deletefinancialasset.html', item=itemToDelete)
 
 
 # Disconnect based on provider
