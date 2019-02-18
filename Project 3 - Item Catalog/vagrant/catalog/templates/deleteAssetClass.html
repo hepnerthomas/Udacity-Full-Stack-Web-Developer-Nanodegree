@@ -1,15 +1,30 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+
+<style>
+
+	h2 {
+		font-size: 24px;
+		color: red;
+		line-height: 29px;
+	}
+
+</style>
+
+
 <h2> Are you sure you want to delete {{assetClass.name}}? </h2>
 
 <form action="#" method = 'post'>
 
 	<button type="submit" class="btn btn-default delete" id="submit" type="submit">
-	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
+		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete
+	</button>
+	
 	<a href = '{{url_for('showAssetClasses')}}'>
 		<button class="btn btn-default delete">
-		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button>
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+		</button>
 	</a>
 
 </form>
