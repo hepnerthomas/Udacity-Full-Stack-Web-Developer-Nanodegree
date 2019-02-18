@@ -1,47 +1,32 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="row top-menu">		
-		<div class="col-md-1 text-right">
-			<button type="submit" class="btn btn-default" id="submit" type="submit">
-				<a href="{{url_for('showLogin')}}">Click Here to Login </a>
-			</button>
-		</div>
-	</div>
+{% include "header.html" %}
 
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
+	<div class="row divider blue"></div>
 
 	<div class="row banner main">
-		<div class="col-md-1"></div>
-		<div class="col-md-11 padding-none">
 			<h1>Asset Class</h1>
-		</div>
 	</div>
 
 	<div class = 'flash'>
-		{% with messages = get_flashed_messages() %}
-      	{% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li> 
-				<strong> {{ message }} </strong> 
-			</li> 
-        {% endfor %}
-		</ul>
-		{% endif %}
-    {% endwith %}
-	</div>
+			{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<ul>
+						{% for message in messages %}
+								<li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+						 </ul>
+					{% endif %}
+			{% endwith %}
+		</div>
 
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
+	<div class="row divider blue"></div>
 
 	{% for assetClass in assetClasses %}
 		<a href = "{{url_for('showFinancialAssets', asset_class_id = assetClass.id)}}">
 			<div class="row">
 				<div class="col-md-1"></div>
-					<div class="col-md-10 assetClasses-list">
+					<div class="assetClasses-list">
 						<h3>{{assetClass.name}}</h3>
 					</div>
 				<div class="col-md-1"></div>
@@ -49,9 +34,7 @@
 		</a>
 	{% endfor %}
 
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>	
+	<div class="row divider blue"></div>	
 
 	{% endblock %}
 
