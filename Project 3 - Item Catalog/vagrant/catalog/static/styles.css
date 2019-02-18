@@ -85,8 +85,14 @@ h3 {
 }
 
 .divider.blue {
-	background-color: #42C3C9;
+	background-color: blue;
 }
+
+.divider.green {
+	background-color: green;
+}
+
+
 
 .banner.main {
 	height: 150px;
