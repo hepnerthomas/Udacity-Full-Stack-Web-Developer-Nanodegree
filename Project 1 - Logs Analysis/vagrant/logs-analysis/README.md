@@ -14,7 +14,7 @@ __________________________________________________
 1. Open Git Bash in Windows or Command Prompt with Linux or Mac
 2. Go to directory where you cloned the logs-analysis repository.
 ```
-cd <your-directory-goes-here/Udacity-Full-Stack-Web-Developer-Nanodegree/Project 1 - Logs Analysis/vagrant/>
+cd <your-local-directory-goes-here/Udacity-Full-Stack-Web-Developer-Nanodegree/Project 1 - Logs Analysis/vagrant/>
 ```
 
 3. Start the Vagrant VM.
