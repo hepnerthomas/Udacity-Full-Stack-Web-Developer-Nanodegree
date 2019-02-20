@@ -2,7 +2,7 @@
 __________________________________________________
 
 **Setup Your Environment:**
-1.	Clone the repo into your local repository
+1.	Clone the Udacity-Full-Stack-Web-Developer-Nanodegreerepo into your local repository
 2.	Download the newsdata.sql database
 3.	Download Virtualbox and Vagrant
 4.	(Windows Only) Download Git Bash 
@@ -10,10 +10,41 @@ __________________________________________________
 6. 	This will output a text file into your working directory.
 
 **Generate the Logs Analysis Output**
-1. Open Git Bash
-2. 
+1. Open Git Bash in Windows or Command Prompt with Linux or Mac
+2. Go to directory where you cloned the logs-analysis repository.
+```
+cd <your-directory-goes-here/Udacity-Full-Stack-Web-Developer-Nanodegree/Project 1 - Logs Analysis/vagrant/>
+```
 
+3. Start the Vagrant VM.
 ```
 vagrant up
 ```
+
+4. Connect to the Vagrant VM.
+```
+vagrant ssh
+```
+
+5. Enter the vagrant directory.
+```
+cd /vagrant
+```
+
+6. Enter the logs-analysis directory.
+```
+cd logs-analysis
+```
+
+7. Generate the news database
+```
+psql -d news -f newsdata.sql
+```
+
+8. Run logs-analysis Python script.
+```
+python logs-analysis.py
+```
+
+9. logs-analysis-output.txt should appear in your directory!
 
