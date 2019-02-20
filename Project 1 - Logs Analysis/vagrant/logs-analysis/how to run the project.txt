@@ -1,0 +1,6 @@
+vagrant up
+vagrant ssh
+cd /vagrant
+cd logs-analysis
+psql -d news -f newsdata.sql
+python logs-analysis.py

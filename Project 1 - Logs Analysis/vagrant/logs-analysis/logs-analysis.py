@@ -11,8 +11,8 @@ def getThreeMostPopularArticles(DBNAME):
     c.execute("""
         select articles.title, count(*) as views
         from log
-        left join articles on articles.slug = LTRIM(log.path, '/articles/')
-        where articles.slug is not null
+        left join articles on articles.slug = replace(log.path, '/article/', '')
+        where articles.slug is not null and log.status = '200 OK'
         group by articles.title, articles.slug order by count(*) desc
         limit 3;
     """)
@@ -30,7 +30,7 @@ def getMostPopularAuthors(DBNAME):
     c.execute("""
         select authors.name, count(*) as views
         from log
-        left join articles on articles.slug = LTRIM(log.path, '/articles/')
+        left join articles on articles.slug = replace(log.path, '/article/', '')
         left join authors on authors.id = articles.author
         where articles.slug is not null
         group by authors.name order by count(*) desc;
