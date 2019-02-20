@@ -1,4 +1,4 @@
-#### Project 1: Logs Analysis
+## Project 1: Logs Analysis
 __________________________________________________
 1.	Clone the repo into your local repository
 2.	Download the newsdata.sql database
