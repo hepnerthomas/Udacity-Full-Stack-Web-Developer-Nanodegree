@@ -1,7 +1,7 @@
 ## Project 1: Logs Analysis
 __________________________________________________
 
-**Setup Your Environment:**
+#### Setup Your Environment:**
 1.	Clone the Udacity-Full-Stack-Web-Developer-Nanodegreerepo into your local repository
 2.	Download the newsdata.sql database
 3.	Download Virtualbox and Vagrant
@@ -9,7 +9,8 @@ __________________________________________________
 5.	Run python logs-analysis.py from Git Bash (Windows) or command line (Linux, Mac)
 6. 	This will output a text file into your working directory.
 
-**Generate the Logs Analysis Output**
+
+#### Generate the Logs Analysis Output
 1. Open Git Bash in Windows or Command Prompt with Linux or Mac
 2. Go to directory where you cloned the logs-analysis repository.
 ```
