@@ -53,7 +53,7 @@ def fbconnect():
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
-    userinfo_url = "https://graph.facebook.com/v2.8/me"
+    userinfo_url = "https://graph.facebook.com/v3.2/me"
     '''
         Due to the formatting for the result from the server token exchange we have to
         split the token first on commas and select the first index which gives us the key : value
@@ -63,7 +63,7 @@ def fbconnect():
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
 
-    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v3.2/me?access_token=%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print("url sent for API access:%s"% url)
