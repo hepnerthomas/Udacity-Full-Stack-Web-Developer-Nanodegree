@@ -2,3 +2,5 @@
 Project 1 - Logs Analysis/newsdata.sql
 *.db
 *.sql
+keys.pub
+keys

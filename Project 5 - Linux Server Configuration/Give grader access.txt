@@ -1,0 +1,38 @@
+Create grader user: 
+sudo adduser grader
+password: grader
+
+sudo apt-get autoremove
+sudo apt-get install finger
+
+Give grader permission to sudo: 
+sudo usermod -aG sudo grader
+
+Create an ssh key pair for grader:
+
+	ON LOCAL MACHINE: 
+	ssh-keygen -f id_rsa -e -m pem
+	/c/Users/thep3/.ssh/linuxCourse-grader
+	passphrase: ilovebowie
+	Fingerprint: SHA256:AybVsdmm8pWyckPLBBxeJV36dD/WmvRVCbbTwB8BjVk thep3@DESKTOP-M033BO1
+
+	installing public key on remote server: 
+	mkdir .ssh
+	touch .ssh/authorized_keys
+
+	ON LOCAL MACHINE: 
+	cat .ssh/linuxCourse-grader.pub
+
+	on remote server - grader:
+	nano .ssh/authorized_keys
+	chmod 700 .ssh
+	chmod 644 .ssh/authorized_keys
+
+	on local machine: 
+	ssh -i ~/.ssh/linuxCourse-grader.pub grader@54.210.237.155 -p 2200
+
+ssh grader@54.210.237.155 -p 2200
+sudo nano /etc/ssh/sshd_config
+Port 22 --> 2222
+sudo service ssh force-reload
+ssh student@127.0.0.1 -p 2222

@@ -1,0 +1,28 @@
+2. Secure your server. 
+
+	Update Firewall for SSH 2200 and NTP 123
+
+	sudo apt-get update
+	sudo apt-get upgrade
+
+	sudo nano /etc/ssh/sshd_config
+	Add a line for port 2200
+	Save this.
+
+	Configure UFW:
+	sudo ufw status
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+ 	sudo ufw allow ssh
+	sudo ufw allow 2200/tcp
+	sudo ufw allow www
+	sudo ufw enable
+	sudo ufw status
+	reboot AWS Lightsail Server on website
+
+	Login with Local Terminal:
+	ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem ubuntu@54.210.237.155 -p 2200
+
+	Remove Port 22: 
+	- sudo nano
+	- Firewall settings
