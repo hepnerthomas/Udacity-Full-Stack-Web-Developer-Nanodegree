@@ -91,7 +91,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
+        message = 'Current user is already connected.'
+        response = make_response(json.dumps(message),
                                  200)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -107,7 +108,8 @@ def gconnect():
 
     data = answer.json()
 
-    # Replace username with email because name is no longer available in the Google API
+    # Replace username with email
+    # Name is no longer available in the oauth2 API
     login_session['username'] = data['email']
     login_session['email'] = data['email']
     # ADD PROVIDER TO LOGIN SESSION
@@ -128,9 +130,11 @@ def gconnect():
 
     return output
 
+
 # User Helper Functions
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session['email'])
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -146,7 +150,7 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
-    except:
+    except AttributeError:
         return None
 
 
