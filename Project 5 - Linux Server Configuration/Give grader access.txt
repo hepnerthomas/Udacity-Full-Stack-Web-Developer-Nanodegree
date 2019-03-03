@@ -1,12 +1,27 @@
+List all users: 
+cut -d: -f1 /etc/passwd
+
+Delete grader user: 
+sudo deluser -remove-all-files grader
+
 Create grader user: 
 sudo adduser grader
 password: grader
 
 sudo apt-get autoremove
 sudo apt-get install finger
+finger grader
 
 Give grader permission to sudo: 
 sudo usermod -aG sudo grader
+
+Modify sudoers file in grader: 
+sudo nano /etc/sudoers.d/grader
+grader ALL=(ALL) NOPASSWD:ALL
+
+Switch from ubuntu to grader: 
+su grader 
+(not effective) sudo ssh grader@54.210.237.155 -p 2200
 
 Create an ssh key pair for grader:
 
@@ -15,6 +30,12 @@ Create an ssh key pair for grader:
 	/c/Users/thep3/.ssh/linuxCourse-grader
 	passphrase: ilovebowie
 	Fingerprint: SHA256:AybVsdmm8pWyckPLBBxeJV36dD/WmvRVCbbTwB8BjVk thep3@DESKTOP-M033BO1
+
+	ON LOCAL MACHINE: 
+	ssh-keygen
+	/c/Users/thep3/.ssh/linuxCourse-grader
+	passphrase: ilovebowie
+	Fingerprint: SHA256:lIdYCLIHYPIORbT7n2C343js+LWwXz0i8oEHPv9NCGQ thep3@DESKTOP-M033BO1
 
 	installing public key on remote server: 
 	mkdir .ssh

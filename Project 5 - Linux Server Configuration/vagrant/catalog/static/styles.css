@@ -1,0 +1,102 @@
+* {
+	font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
+	font-weight: 1000;
+}
+
+h1 {
+	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	color: #51453B;
+	line-height: 60px;
+	font-weight: 300;
+}
+
+h2 {
+	font-size: 24px;
+	color: #42C3C9;
+	line-height: 29px;
+}
+
+p {
+ 	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+ 	font-size: 16px;
+ 	color: #7B7573;
+ 	line-height: 24px;
+ 	font-weight: 400;
+ }
+
+ strong {
+ 	font-size: 16px;
+ 	color: #7B7573;
+ 	line-height: 24px;
+ }
+
+ a {
+ 	font-size: 14px;
+ 	color: #0093B9;
+ 	line-height: 17px;
+ }
+
+.padding-top {
+	padding-top: 30px;
+}
+
+.padding-bottom {
+	padding-bottom: 30px;
+}
+
+.margin-right {
+	margin-right: 30px;
+}
+
+.padding-none {
+	padding: 0;
+}
+
+.btn {
+	padding: 5px;
+	margin: 0;
+	border-color:#4CAF50;
+	border-width: 2px;
+	color: #4CAF50;;
+}
+
+.btn:hover {
+	border-color:#4CAF50;
+}
+
+.btn.delete {
+	border-color:#4CAF50;
+	color: #4CAF50;
+}
+
+.btn.delete:hover {
+	border-color:#4CAF50;
+	color: red;
+}
+
+.divider {
+	height: 30px;
+}
+
+.divider.blue {
+	background-color: blue;
+}
+
+.banner.main {
+	height: 150px;
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.flash {
+	background-color: #98FB98;
+	width:100%;
+	text-decoration: none;
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+}

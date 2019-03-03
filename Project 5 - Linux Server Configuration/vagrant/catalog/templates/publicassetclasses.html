@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider blue"></div>
+
+	<div class="row banner main">
+			<h1>Asset Class</h1>
+	</div>
+
+	<div class = 'flash'>
+			{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						<ul>
+						{% for message in messages %}
+								<li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+						 </ul>
+					{% endif %}
+			{% endwith %}
+		</div>
+
+	<div class="row divider blue"></div>
+
+	{% for assetClass in assetClasses %}
+		<a href = "{{url_for('showFinancialAssets', asset_class_id = assetClass.id)}}">
+			<div class="row">
+				<div class="col-md-1"></div>
+					<div class="assetClasses-list">
+						<h3>{{assetClass.name}}</h3>
+					</div>
+				<div class="col-md-1"></div>
+			</div>
+		</a>
+	{% endfor %}
+
+	<div class="row divider blue"></div>	
+
+	{% endblock %}
+
+
+

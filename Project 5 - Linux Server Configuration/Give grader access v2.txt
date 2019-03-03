@@ -1,0 +1,40 @@
+Connect to the Lightsail Instance: 
+ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem ubuntu@54.91.175.125 -p 2200
+
+sudo adduser grader
+password: grader
+
+sudo apt-get autoremove
+sudo apt-get install finger
+finger grader
+
+Give grader sudo access: 
+sudo usermod -a -G sudo grader
+
+Switch to grader directory: 
+sudo su - grader
+
+generate public-private key pair on LOCAL MACHINE: 
+ssh-keygen
+/c/Users/thep3/.ssh/linuxCourse-grader
+passphrase: ilovebowie
+
+open private key and save as .pem file on LOCAL MACHINE
+
+installing public key on remote server: 
+mkdir .ssh
+touch .ssh/authorized_keys
+
+on local machine: 
+cat .ssh/linuxCourse-grader.pub
+
+on remote server - grader:
+nano .ssh/authorized_keys
+chmod 700 .ssh
+chmod 644 .ssh/authorized_keys
+
+Import Key Pair on AWS: 
+https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:sort=keyName
+
+Open a New Terminal on LOCAL MACHINE: 
+ssh -i ~/.ssh/linuxCourse-grader.pem grader@3.89.247.207 -p 2200

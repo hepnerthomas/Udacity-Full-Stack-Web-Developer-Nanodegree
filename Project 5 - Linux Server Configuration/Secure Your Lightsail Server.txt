@@ -21,7 +21,7 @@
 	reboot AWS Lightsail Server on website
 
 	Login with Local Terminal:
-	ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem ubuntu@54.210.237.155 -p 2200
+	ssh -i ~/.ssh/LightsailDefaultKey-us-east-1.pem ubuntu@3.89.247.207 -p 2200
 
 	Remove Port 22: 
 	- sudo nano

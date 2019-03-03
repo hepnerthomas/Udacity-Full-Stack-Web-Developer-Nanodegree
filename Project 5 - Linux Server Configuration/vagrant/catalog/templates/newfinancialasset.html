@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider blue"></div>
+	<div class="row banner main">
+		<h1>New Financial Asset</h1>
+	</div>
+	<div class="row divider blue"></div>	
+	<div class="row">
+		<div class="padding-top">
+			<form action="#" method = "post">
+				<div class="form-group">
+
+					<label for="name">Name:</label>
+					<input type ="text" maxlength="50" class="form-control" name="name" placeholder="Name of the financial asset">
+
+					<div class="form-group"></div>
+						<label for="asset_class"> Asset Class: </label>
+						<select maxlength="100" class="form-control", name = "asset_class">
+							{% for assetClass in assetClasses %}
+								{% if assetClass.name != selectedAssetClass.name %}
+									<option id="{{assetClass.id}}" value="{{assetClass.id}}">{{assetClass.name}}</option>
+								{% else %}
+									<option selected id="{{assetClass.id}}" value="{{assetClass.id}}">{{selectedAssetClass.name}}</option>	
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+					<br>
+
+					<label for="description">Description:</label>
+					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the financial asset"></textarea>
+
+					<label for="price">Price:</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type ="text" class="form-control" maxlength="10" name="price" placeholder="Price in $">
+					</div>
+					<br>
+					<button type="submit" class="btn btn-default" id="submit" type="submit">Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+

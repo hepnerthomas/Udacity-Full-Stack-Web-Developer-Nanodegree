@@ -1,0 +1,25 @@
+Switch Timezone to UTC:
+sudo dpkg-reconfigure tzdata
+
+Install Python 3 mod_wsgi package:
+sudo apt-get install libapache2-mod-wsgi-py3
+
+Install PostgreSQL: 
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+
+Configure PostgreSQL:
+1. Create a new database user named catalog that has limited permissions:
+sudo -i -u postgres
+\q (exits postgresql)
+createuser --interactive
+superuser: n
+create databases: n
+create more new roles: n
+
+DO NOT ALLOW REMOTE CONNECTIONS???
+
+Install git: 
+sudo apt-get update
+sudo apt-get install git-core
+

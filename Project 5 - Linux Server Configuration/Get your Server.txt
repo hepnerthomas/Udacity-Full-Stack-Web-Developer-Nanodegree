@@ -1,0 +1,6 @@
+1. Create Amazon Lightsail Instance
+2. Go to "Networking" tab
+3. Go to "Firewall" section
+4. Add Custom with Port Range 123
+5. Add another Custom with Port Range 2200
+6. Download the default private .pem key into the local .ssh folder
